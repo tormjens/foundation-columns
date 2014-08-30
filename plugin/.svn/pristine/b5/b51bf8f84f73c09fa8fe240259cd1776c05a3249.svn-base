@@ -1,0 +1,64 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Foundation Columns\n"
+"POT-Creation-Date: 2014-05-31 02:37+0100\n"
+"PO-Revision-Date: 2014-05-31 02:37+0100\n"
+"Last-Translator: Tor Morten Jensen <tormorten@smartmedia.no>\n"
+"Language-Team: Tor Morten Jensen/Smart Media <tormorten@smartmedia.no>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.5\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../localization.php:11
+msgid "Columns"
+msgstr ""
+
+#: ../localization.php:12
+msgid "Column"
+msgstr ""
+
+#: ../localization.php:13
+msgid "No Column"
+msgstr ""
+
+#: ../localization.php:14
+msgid "Insert Columns"
+msgstr ""
+
+#: ../localization.php:15
+msgid "For each device width, select the number of columns you want."
+msgstr ""
+
+#: ../localization.php:16
+msgid "If you don't need one of the devices, leave it at 'No column'."
+msgstr ""
+
+#: ../localization.php:17
+msgid "Small"
+msgstr ""
+
+#: ../localization.php:18
+msgid "Medium"
+msgstr ""
+
+#: ../localization.php:19
+msgid "Large"
+msgstr ""
+
+#: ../localization.php:20
+msgid "Block Grid"
+msgstr ""
+
+#: ../localization.php:21
+msgid "Insert Block Grid"
+msgstr ""
+
+#: ../localization.php:22
+msgid "For each device width, enter the number of items you want per row."
+msgstr ""

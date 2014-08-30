@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project title="API Documentation" version="2.7.0">
+  <partials/>
+  <file path="foundation-columns.php" generated-path="foundation-columns.html" hash="8576e2937962b81a7dafc1da50373ca8" package="WordPress">
+    <docblock line="0">
+      <description>Foundation Columns WordPress Plugin</description>
+      <long-description></long-description>
+      <tag name="package" line="0" description="WordPress"/>
+      <tag name="package" line="0" description="WordPress"/>
+    </docblock>
+    <constant namespace="" line="44" package="WordPress">
+      <name>FCOL_NAME</name>
+      <full_name>\FCOL_NAME</full_name>
+      <value>'Foundation Columns'</value>
+      <docblock line="44">
+        <description>The name of the plugin</description>
+        <long-description></long-description>
+        <tag name="package" line="44" description="WordPress"/>
+        <tag name="package" line="44" description="WordPress"/>
+      </docblock>
+    </constant>
+    <constant namespace="" line="49" package="WordPress">
+      <name>FCOL_REQUIRED_PHP_VERSION</name>
+      <full_name>\FCOL_REQUIRED_PHP_VERSION</full_name>
+      <value>'5'</value>
+      <docblock line="49">
+        <description>The minimum required PHP version</description>
+        <long-description></long-description>
+        <tag name="package" line="49" description="WordPress"/>
+        <tag name="package" line="49" description="WordPress"/>
+      </docblock>
+    </constant>
+    <constant namespace="" line="54" package="WordPress">
+      <name>FCOL_REQUIRED_WP_VERSION</name>
+      <full_name>\FCOL_REQUIRED_WP_VERSION</full_name>
+      <value>'3.7'</value>
+      <docblock line="54">
+        <description>The minimum required WordPress version</description>
+        <long-description></long-description>
+        <tag name="package" line="54" description="WordPress"/>
+        <tag name="package" line="54" description="WordPress"/>
+      </docblock>
+    </constant>
+    <function namespace="" line="61" package="WordPress">
+      <name>foundation_columns_requirements_met</name>
+      <full_name>\foundation_columns_requirements_met()</full_name>
+      <docblock line="61">
+        <description>Checks if the system requirements are met</description>
+        <long-description></long-description>
+        <tag name="package" line="61" description="WordPress"/>
+        <tag name="package" line="61" description="WordPress"/>
+        <tag name="return" line="61" description="True if system requirements are met, false if not" type="boolean">
+          <type>boolean</type>
+        </tag>
+      </docblock>
+    </function>
+    <function namespace="" line="87" package="WordPress">
+      <name>foundation_columns_textdomain</name>
+      <full_name>\foundation_columns_textdomain()</full_name>
+      <docblock line="87">
+        <description>Localize the plugin</description>
+        <long-description></long-description>
+        <tag name="package" line="87" description="WordPress"/>
+        <tag name="package" line="87" description="WordPress"/>
+        <tag name="return" line="87" description="" type="void">
+          <type>void</type>
+        </tag>
+      </docblock>
+    </function>
+    <function namespace="" line="106" package="WordPress">
+      <name>foundation_columns</name>
+      <full_name>\foundation_columns()</full_name>
+      <docblock line="106">
+        <description>Shortcode function for the main grid system</description>
+        <long-description></long-description>
+        <tag name="package" line="106" description="WordPress"/>
+        <tag name="package" line="106" description="WordPress"/>
+        <tag name="param" line="106" description="&lt;p&gt;Shortcode attributes&lt;/p&gt;" type="array|string" variable="$atts">
+          <type>array</type>
+          <type>string</type>
+        </tag>
+        <tag name="param" line="106" description="&lt;p&gt;The content inside the shortcode&lt;/p&gt;" type="string" variable="$content">
+          <type>string</type>
+        </tag>
+        <tag name="return" line="106" description="Column Formatted" type="string">
+          <type>string</type>
+        </tag>
+      </docblock>
+      <argument line="0" by_reference="false">
+        <name>$atts</name>
+        <default></default>
+        <type>array|string</type>
+      </argument>
+      <argument line="0" by_reference="false">
+        <name>$content</name>
+        <default>null</default>
+        <type>string</type>
+      </argument>
+    </function>
+    <function namespace="" line="134" package="WordPress">
+      <name>foundation_columns_grid</name>
+      <full_name>\foundation_columns_grid()</full_name>
+      <docblock line="134">
+        <description>Shortcode function for the block grid</description>
+        <long-description></long-description>
+        <tag name="package" line="134" description="WordPress"/>
+        <tag name="package" line="134" description="WordPress"/>
+        <tag name="param" line="134" description="&lt;p&gt;Shortcode attributes&lt;/p&gt;" type="array|string" variable="$atts">
+          <type>array</type>
+          <type>string</type>
+        </tag>
+        <tag name="param" line="134" description="&lt;p&gt;The content inside the shortcode&lt;/p&gt;" type="string" variable="$content">
+          <type>string</type>
+        </tag>
+        <tag name="return" line="134" description="A block grid" type="string">
+          <type>string</type>
+        </tag>
+      </docblock>
+      <argument line="0" by_reference="false">
+        <name>$atts</name>
+        <default></default>
+        <type>array|string</type>
+      </argument>
+      <argument line="0" by_reference="false">
+        <name>$content</name>
+        <default>null</default>
+        <type>string</type>
+      </argument>
+    </function>
+    <function namespace="" line="162" package="WordPress">
+      <name>foundation_columns_item</name>
+      <full_name>\foundation_columns_item()</full_name>
+      <docblock line="162">
+        <description>Shortcode function for the block grid items</description>
+        <long-description></long-description>
+        <tag name="package" line="162" description="WordPress"/>
+        <tag name="package" line="162" description="WordPress"/>
+        <tag name="param" line="162" description="&lt;p&gt;Shortcode attributes&lt;/p&gt;" type="array|string" variable="$atts">
+          <type>array</type>
+          <type>string</type>
+        </tag>
+        <tag name="param" line="162" description="&lt;p&gt;The content inside the shortcode&lt;/p&gt;" type="string" variable="$content">
+          <type>string</type>
+        </tag>
+        <tag name="return" line="162" description="A block grid item" type="string">
+          <type>string</type>
+        </tag>
+      </docblock>
+      <argument line="0" by_reference="false">
+        <name>$atts</name>
+        <default></default>
+        <type>array|string</type>
+      </argument>
+      <argument line="0" by_reference="false">
+        <name>$content</name>
+        <default>null</default>
+        <type>string</type>
+      </argument>
+    </function>
+    <function namespace="" line="183" package="WordPress">
+      <name>foundation_columns_posts_class</name>
+      <full_name>\foundation_columns_posts_class()</full_name>
+      <docblock line="183">
+        <description>Add a class to posts_class if shortcode is present</description>
+        <long-description></long-description>
+        <tag name="package" line="183" description="WordPress"/>
+        <tag name="package" line="183" description="WordPress"/>
+        <tag name="param" line="183" description="&lt;p&gt;An array of classes&lt;/p&gt;" type="array" variable="$classes">
+          <type>array</type>
+        </tag>
+        <tag name="param" line="183" description="&lt;p&gt;The current class&lt;/p&gt;" type="string" variable="$class">
+          <type>string</type>
+        </tag>
+        <tag name="param" line="183" description="&lt;p&gt;The post ID&lt;/p&gt;" type="integer" variable="$post_id">
+          <type>integer</type>
+        </tag>
+        <tag name="return" line="183" description="Modified classes" type="array">
+          <type>array</type>
+        </tag>
+      </docblock>
+      <argument line="0" by_reference="false">
+        <name>$classes</name>
+        <default></default>
+        <type>array</type>
+      </argument>
+      <argument line="0" by_reference="false">
+        <name>$class</name>
+        <default></default>
+        <type>string</type>
+      </argument>
+      <argument line="0" by_reference="false">
+        <name>$post_id</name>
+        <default></default>
+        <type>integer</type>
+      </argument>
+    </function>
+    <function namespace="" line="204" package="WordPress">
+      <name>foundation_columns_content</name>
+      <full_name>\foundation_columns_content()</full_name>
+      <docblock line="204">
+        <description>Filters the content and puts a row around if the [fc]-shortcode is present</description>
+        <long-description></long-description>
+        <tag name="package" line="204" description="WordPress"/>
+        <tag name="package" line="204" description="WordPress"/>
+        <tag name="param" line="204" description="&lt;p&gt;The posts content&lt;/p&gt;" type="string" variable="$content">
+          <type>string</type>
+        </tag>
+        <tag name="return" line="204" description="Modified post content" type="string">
+          <type>string</type>
+        </tag>
+      </docblock>
+      <argument line="0" by_reference="false">
+        <name>$content</name>
+        <default></default>
+        <type>string</type>
+      </argument>
+    </function>
+    <function namespace="" line="253" package="WordPress">
+      <name>foundation_columns_buttonhooks</name>
+      <full_name>\foundation_columns_buttonhooks()</full_name>
+      <docblock line="253">
+        <description>Add buttons to the TinyMCE-editor</description>
+        <long-description></long-description>
+        <tag name="package" line="253" description="WordPress"/>
+        <tag name="package" line="253" description="WordPress"/>
+        <tag name="return" line="253" description="" type="void">
+          <type>void</type>
+        </tag>
+      </docblock>
+    </function>
+    <function namespace="" line="267" package="WordPress">
+      <name>foundation_columns_register_buttons</name>
+      <full_name>\foundation_columns_register_buttons()</full_name>
+      <docblock line="267">
+        <description>Registers the buttons</description>
+        <long-description></long-description>
+        <tag name="package" line="267" description="WordPress"/>
+        <tag name="package" line="267" description="WordPress"/>
+        <tag name="param" line="267" description="&lt;p&gt;All buttons&lt;/p&gt;" type="array" variable="$buttons">
+          <type>array</type>
+        </tag>
+        <tag name="return" line="267" description="All buttons" type="array">
+          <type>array</type>
+        </tag>
+      </docblock>
+      <argument line="0" by_reference="false">
+        <name>$buttons</name>
+        <default></default>
+        <type>array</type>
+      </argument>
+    </function>
+    <function namespace="" line="279" package="WordPress">
+      <name>foundation_columns_register_tinymce_javascript</name>
+      <full_name>\foundation_columns_register_tinymce_javascript()</full_name>
+      <docblock line="279">
+        <description>Adds the JavaScript used for the grid system in the editor</description>
+        <long-description></long-description>
+        <tag name="package" line="279" description="WordPress"/>
+        <tag name="package" line="279" description="WordPress"/>
+        <tag name="param" line="279" description="&lt;p&gt;An array of tinyMCE plugins&lt;/p&gt;" type="array" variable="$plugin_array">
+          <type>array</type>
+        </tag>
+        <tag name="return" line="279" description="TinyMCE plugins" type="array">
+          <type>array</type>
+        </tag>
+      </docblock>
+      <argument line="0" by_reference="false">
+        <name>$plugin_array</name>
+        <default></default>
+        <type>array</type>
+      </argument>
+    </function>
+    <function namespace="" line="292" package="WordPress">
+      <name>foundation_columns_icon</name>
+      <full_name>\foundation_columns_icon()</full_name>
+      <docblock line="292">
+        <description>Create an icon for the TinyMCE-menu</description>
+        <long-description></long-description>
+        <tag name="package" line="292" description="WordPress"/>
+        <tag name="package" line="292" description="WordPress"/>
+        <tag name="return" line="292" description="" type="void">
+          <type>void</type>
+        </tag>
+      </docblock>
+    </function>
+    <function namespace="" line="317" package="WordPress">
+      <name>foundation_columns_localization</name>
+      <full_name>\foundation_columns_localization()</full_name>
+      <docblock line="317">
+        <description>Languages for the dialog</description>
+        <long-description></long-description>
+        <tag name="package" line="317" description="WordPress"/>
+        <tag name="package" line="317" description="WordPress"/>
+        <tag name="param" line="317" description="&lt;p&gt;Existing translations&lt;/p&gt;" type="array" variable="$mce_external_languages">
+          <type>array</type>
+        </tag>
+        <tag name="return" line="317" description="Translation" type="array">
+          <type>array</type>
+        </tag>
+      </docblock>
+      <argument line="0" by_reference="false">
+        <name>$mce_external_languages</name>
+        <default></default>
+        <type>array</type>
+      </argument>
+    </function>
+    <function namespace="" line="339" package="WordPress">
+      <name>foundation_columns_error</name>
+      <full_name>\foundation_columns_error()</full_name>
+      <docblock line="339">
+        <description>Throw and error upon activation if requirements are not met</description>
+        <long-description></long-description>
+        <tag name="package" line="339" description="WordPress"/>
+        <tag name="package" line="339" description="WordPress"/>
+        <tag name="return" line="339" description="An error message" type="void">
+          <type>void</type>
+        </tag>
+      </docblock>
+    </function>
+    <parse_markers>
+      <error line="0" code="PPC:ERR-50001">Only one @package tag is allowed</error>
+    </parse_markers>
+    <source>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</source>
+  </file>
+  <file path="localization.php" generated-path="localization.html" hash="9e494c1cf3fd62ffb8071ac8b73d94e2" package="Default">
+    <docblock line="0">
+      <description>Localized strings for the TinyMCE popup dialog</description>
+      <long-description></long-description>
+      <tag name="package" line="0" description="Default"/>
+      <tag name="return" line="0" description="" type=""/>
+    </docblock>
+    <source>eJydlFFL5DAUhd/7Kw5FyDiUyu7Tou66OLjLgIqg7yU2dzpZ05uSpA4q+99NW13ZtSudaaCUnN4vJzenPT5p1g2QHMznCeY4t6U0+pEUfHCaK4+VdQhrwo3mh4vFGRrbtA2UlsZWsaIr+u4otI4Rnw+SvdfCrwkgwlCVS6WWn77wLL4Tr1Qgx15dUmG69Qi5yFe2ZSWDtlyU1rQ1+yvTVprTbKh56u/Ai4jDgUK+LH75GYpiBrEYNJFBvMcJ7MeRQ6TZX6gPSFNBbBf/R11abEd7EW50iJ0ZIy7ZkwvYabd+ycHZUeyPeNIkyzUU3euSsNEqrDN4MlSGPgPc1rfkYFd/TuHBtthIDvkuLj6P2UiXq56qLIsAphhFy9St2TkYrPkMhuQ9QQfI0Ld44Io8nejD19IYjPbhupOm7qcmpdt6HHTRa1NJRrqKxkHnnTSVUzmtxjGn8Wu7w8+ob8MacvhREHfjDkHcJonEgdw/QdSB6rcYoomzzm4mxvF392vZPxJHSXLy7RndJHvR</source>
+  </file>
+  <package name="Default" full_name="Default"/>
+  <package name="WordPress" full_name="WordPress"/>
+  <package name="global" full_name="global"/>
+  <namespace name="global" full_name="global"/>
+  <deprecated count="0"/>
+</project>

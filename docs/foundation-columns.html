@@ -1,0 +1,796 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>API Documentation</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/black-tie/jquery-ui-1.8.2.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/default.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script></head><body><script type="text/javascript">
+          $(document).ready(function()
+          {
+            $(".filetree").treeview({
+              animated: "fast",
+              collapsed: true,
+              persist: "cookie"
+            });
+          });
+
+          function jq_escape(myid)
+          {
+            return '#' + myid.replace(/(#|\$|:|\.|\(|\))/g, '\\$1');
+          }
+
+          function applySearchHash()
+          {
+            hashes = document.location.hash.substr(1, document.location.hash.length);
+            if (hashes != "")
+            {
+              hashes = hashes.split('/');
+              $.each(hashes, function(index, hash)
+              {
+                node = $(jq_escape(hash));
+                switch (node[0].nodeName)
+                {
+                  case 'DIV':
+                    tabs = node.parents('.tabs');
+                    $(tabs[0]).tabs('select', '#' + hash)
+                    break;
+                  case 'A':
+                    window.scrollTo(0, node.offset().top);
+                    break;
+                }
+              });
+            }
+          }
+
+          jQuery(function()
+          {
+            jQuery(".tabs").tabs();
+            applySearchHash();
+          });
+        </script><div id="maincontainer"><div id="header"><h1>API Documentation<img src="images/top-stopper.png"></img></h1></div><ul xmlns="" id="menu">
+<li><a href="graph.html">Class diagram</a></li>
+<li><a href="markers.html">TODO / Markers</a></li>
+<li><a href="parse_markers.html">Errors</a></li>
+</ul>
+<div id="content_container"><div xmlns="" id="content">
+<h1>foundation-columns.php</h1>
+<div class="file_menu">
+<a href="#functions">Functions</a> |<a href="#constants">Constants</a> |</div>
+<div class="properties">
+<h1>Properties</h1>
+<label class="property-key">package</label><div class="property-value"></div>
+<label class="property-key">package</label><div class="property-value"></div>
+</div>
+<h2>Description</h2>Foundation Columns WordPress Plugin<br><br><a name="functions"></a><h2>Functions</h2>
+<div class="method">
+<a id="::foundation_columns_requirements_met()"></a><h3>foundation_columns_requirements_met<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">boolean</span>
+</h3>
+<h4>Description</h4>
+<em>Checks if the system requirements are met</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>boolean</td>
+<td>True if system requirements are met, false if not</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>package</td>
+<td>WordPress</td>
+</tr>
+<tr>
+<td>package</td>
+<td>WordPress</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="::foundation_columns_textdomain()"></a><h3>foundation_columns_textdomain<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">void</span>
+</h3>
+<h4>Description</h4>
+<em>Localize the plugin</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>void</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>package</td>
+<td>WordPress</td>
+</tr>
+<tr>
+<td>package</td>
+<td>WordPress</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="::foundation_columns()"></a><h3>foundation_columns<span class="nb-faded-text">(
+          
+             
+            $atts,
+          
+             
+            $content
+            = null,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>Shortcode function for the main grid system</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$atts</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$content</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>null</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td>Column Formatted</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>package</td>
+<td>WordPress</td>
+</tr>
+<tr>
+<td>package</td>
+<td>WordPress</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="::foundation_columns_grid()"></a><h3>foundation_columns_grid<span class="nb-faded-text">(
+          
+             
+            $atts,
+          
+             
+            $content
+            = null,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>Shortcode function for the block grid</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$atts</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$content</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>null</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td>A block grid</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>package</td>
+<td>WordPress</td>
+</tr>
+<tr>
+<td>package</td>
+<td>WordPress</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="::foundation_columns_item()"></a><h3>foundation_columns_item<span class="nb-faded-text">(
+          
+             
+            $atts,
+          
+             
+            $content
+            = null,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>Shortcode function for the block grid items</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$atts</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$content</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>null</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td>A block grid item</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>package</td>
+<td>WordPress</td>
+</tr>
+<tr>
+<td>package</td>
+<td>WordPress</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="::foundation_columns_posts_class()"></a><h3>foundation_columns_posts_class<span class="nb-faded-text">(
+          array
+             
+            $classes,
+          string
+             
+            $class,
+          integer
+             
+            $post_id,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">array</span>
+</h3>
+<h4>Description</h4>
+<em>Add a class to posts_class if shortcode is present</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$classes</td>
+<td style="white-space: normal;">array</td>
+<td><p>An array of classes</p></td>
+<td></td>
+</tr>
+<tr>
+<td>$class</td>
+<td style="white-space: normal;">string</td>
+<td><p>The current class</p></td>
+<td></td>
+</tr>
+<tr>
+<td>$post_id</td>
+<td style="white-space: normal;">integer</td>
+<td><p>The post ID</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>array</td>
+<td>Modified classes</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>package</td>
+<td>WordPress</td>
+</tr>
+<tr>
+<td>package</td>
+<td>WordPress</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="::foundation_columns_content()"></a><h3>foundation_columns_content<span class="nb-faded-text">(
+          string
+             
+            $content,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>Filters the content and puts a row around if the [fc]-shortcode is present</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$content</td>
+<td style="white-space: normal;">string</td>
+<td><p>The posts content</p></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td>Modified post content</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>package</td>
+<td>WordPress</td>
+</tr>
+<tr>
+<td>package</td>
+<td>WordPress</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="::foundation_columns_buttonhooks()"></a><h3>foundation_columns_buttonhooks<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">void</span>
+</h3>
+<h4>Description</h4>
+<em>Add buttons to the TinyMCE-editor</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>void</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>package</td>
+<td>WordPress</td>
+</tr>
+<tr>
+<td>package</td>
+<td>WordPress</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="::foundation_columns_register_buttons()"></a><h3>foundation_columns_register_buttons<span class="nb-faded-text">(
+          
+             
+            $buttons,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">array</span>
+</h3>
+<h4>Description</h4>
+<em>Registers the buttons</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$buttons</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>array</td>
+<td>All buttons</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>package</td>
+<td>WordPress</td>
+</tr>
+<tr>
+<td>package</td>
+<td>WordPress</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="::foundation_columns_register_tinymce_javascript()"></a><h3>foundation_columns_register_tinymce_javascript<span class="nb-faded-text">(
+          array
+             
+            $plugin_array,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">array</span>
+</h3>
+<h4>Description</h4>
+<em>Adds the JavaScript used for the grid system in the editor</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$plugin_array</td>
+<td style="white-space: normal;">array</td>
+<td><p>An array of tinyMCE plugins</p></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>array</td>
+<td>TinyMCE plugins</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>package</td>
+<td>WordPress</td>
+</tr>
+<tr>
+<td>package</td>
+<td>WordPress</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="::foundation_columns_icon()"></a><h3>foundation_columns_icon<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>package</td>
+<td>WordPress</td>
+</tr>
+<tr>
+<td>package</td>
+<td>WordPress</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="::foundation_columns_localization()"></a><h3>foundation_columns_localization<span class="nb-faded-text">(
+          
+             
+            $mce_external_languages,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$mce_external_languages</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>package</td>
+<td>WordPress</td>
+</tr>
+<tr>
+<td>package</td>
+<td>WordPress</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="::foundation_columns_error()"></a><h3>foundation_columns_error<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">void</span>
+</h3>
+<h4>Description</h4>
+<em>Throw and error upon activation if requirements are not met</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>void</td>
+<td>An error message</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>package</td>
+<td>WordPress</td>
+</tr>
+<tr>
+<td>package</td>
+<td>WordPress</td>
+</tr>
+</tbody>
+</table>
+</div>
+<a name="constants"></a><h2>Constants</h2>
+<a id="::FCOL_NAME"></a><div class="constant">
+<h3>
+<span class="nb-faded-text"> 
+        </span>FCOL_NAME<span class="nb-faded-text">
+         = 'Foundation Columns'</span>
+</h3>
+<em>The name of the plugin</em><br><small></small><br><br>
+</div>
+<a id="::FCOL_REQUIRED_PHP_VERSION"></a><div class="constant">
+<h3>
+<span class="nb-faded-text"> 
+        </span>FCOL_REQUIRED_PHP_VERSION<span class="nb-faded-text">
+         = '5'</span>
+</h3>
+<em>The minimum required PHP version</em><br><small></small><br><br>
+</div>
+<a id="::FCOL_REQUIRED_WP_VERSION"></a><div class="constant">
+<h3>
+<span class="nb-faded-text"> 
+        </span>FCOL_REQUIRED_WP_VERSION<span class="nb-faded-text">
+         = '3.7'</span>
+</h3>
+<em>The minimum required WordPress version</em><br><small></small><br><br>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.7.0</a>.</small></div><div id="index"><div class="padder"><input id="search_box"></input><div class="section">
+<h1>Namespaces</h1>
+<ul id="namespaces-" class="filetree"><li class="closed">
+<span class="folder">global</span><ul></ul>
+</li></ul>
+</div><div class="section">
+<h1>Packages</h1>
+<ul id="packages-" class="filetree">
+<li class="closed">
+<span class="folder">Default</span><ul id="packages_Default" class="filetree"></ul>
+</li>
+<li class="closed">
+<span class="folder">WordPress</span><ul id="packages_WordPress" class="filetree"></ul>
+</li>
+<li class="closed">
+<span class="folder">global</span><ul id="packages_global" class="filetree"></ul>
+</li>
+</ul>
+</div>
+</div></div><div id="footer"><div class="padder"></div></div></div></body></html>
