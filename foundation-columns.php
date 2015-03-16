@@ -8,13 +8,13 @@
 Plugin Name: Foundation Columns
 Plugin URI: http://tormorten.no
 Description: Use the Zurb Foundation Grid System in WordPress posts and pages
-Version: 0.6
+Version: 0.7
 Author: Tor Morten Jensen
 Author URI: http://tormorten.no
 */
 
 /**
- * Copyright (c) 2014 Tor Morten Jensen. All rights reserved.
+ * Copyright (c) 2015 Tor Morten Jensen. All rights reserved.
  *
  * Released under the GPL license
  * http://www.opensource.org/licenses/gpl-license.php
@@ -277,7 +277,8 @@ if( foundation_columns_requirements_met() ) {
 	 */
 
 	function foundation_columns_register_tinymce_javascript($plugin_array) {
-	   	$plugin_array['foundation_columns'] = plugins_url('/foundation_columns.js',__file__);
+		$debug = defined('WP_DEBUG') ? WP_DEBUG : false;
+	   	$plugin_array['foundation_columns'] = plugins_url('/assets/js/foundation_columns'. ($debug ? '.min' : '') .'.js',__file__);
 	   	return $plugin_array;
 	}
 	 
@@ -296,7 +297,7 @@ if( foundation_columns_requirements_met() ) {
 			?>
 			<style type="text/css">
 			.mce-i-zurb-icon {
-				background: url('<?php echo plugins_url('/foundation_columns_20x20.png',__file__); ?>') no-repeat!important;
+				background: url('<?php echo plugins_url('/assets/img/foundation_columns_20x20.png',__file__); ?>') no-repeat!important;
 			}
 			</style>
 			<?php
