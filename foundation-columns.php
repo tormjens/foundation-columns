@@ -211,17 +211,31 @@ if( foundation_columns_requirements_met() ) {
 
 			$paragraphs = explode("\r\n", $content);
 
+            $fixedParagraphs = array();
+            $i = 0;
+
+            // fix problem with br
+            foreach ($paragraphs as $paragraph){
+                if($paragraph !== '') {
+                    $fixedParagraphs[$i] .= $paragraph."\r\n";
+
+                   if(substr($paragraph, 0, 3) == '[fc' || substr($paragraph, 0, 4) == '[/fc')
+                        $i++;
+                }
+                else{
+                    $i++;
+                }
+            }
+
 			$new_content = '';
 
-			foreach($paragraphs as $paragraphs) {
-				if($paragraphs !== '') {
-					if(substr($paragraphs, 0, 3) == '[fc')
-						$new_content .= $paragraphs;
-					else {
-						$new_content .= '<div class="small-12 columns"><p>';
-						$new_content .= $paragraphs;
-						$new_content .= '</p></div>';
-					}
+			foreach($fixedParagraphs as $paragraph) {
+				if(substr($paragraph, 0, 3) == '[fc' || substr($paragraph, 0, 4) == '[/fc')
+					$new_content .= $paragraph;
+				else {
+					$new_content .= '<div class="small-12 columns"><p>';
+					$new_content .= $paragraph;
+					$new_content .= '</p></div>';
 				}
 			}
 
