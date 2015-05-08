@@ -1,4 +1,4 @@
-/*! Foundation Columns - v0.7
+/*! Foundation Columns - v0.8
  * http://tormorten.no/
  * Copyright (c) 2015; * Licensed GPLv2+ */
 (function() {

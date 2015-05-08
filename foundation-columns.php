@@ -8,7 +8,7 @@
 Plugin Name: Foundation Columns
 Plugin URI: http://tormorten.no
 Description: Use the Zurb Foundation Grid System in WordPress posts and pages
-Version: 0.7
+Version: 0.8
 Author: Tor Morten Jensen
 Author URI: http://tormorten.no
 */

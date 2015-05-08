@@ -4,7 +4,7 @@ Donate link: http://tormorten.no/
 Tags: foundation, zurb, columns, grid
 Requires at least: 3.7
 Tested up to: 4.2
-Stable tag: 0.7
+Stable tag: 0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,6 +48,9 @@ Foundation Columns adds a row to posts where the shortcode is detected. I recomm
 2. The result after added columns.
 
 == Changelog ==
+
+= 0.8 =
+* Fixes an issue where normal linebreaks was converted to tags. Thanks to [etlam][https://github.com/etlam]
 
 = 0.5 =
 * Added support for blog grids
