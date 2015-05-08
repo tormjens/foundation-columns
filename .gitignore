@@ -1,3 +1,4 @@
 /plugin
 /release
 /node_modules
+.idea/*
