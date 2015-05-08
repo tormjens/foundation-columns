@@ -14,7 +14,7 @@ Use the Zurb Foundation-grid and block grid in all your posts, pages and custom 
 
 Adds support for using Zurb's Foundation grid-system via shortcodes in WordPress' TinyMCE editor.
 
-For more information about Foundation, please [read the docs][http://foundation.zurb.com/docs/ "Zurb Foundation"].
+For more information about Foundation, please [read the docs](http://foundation.zurb.com/docs/ "Zurb Foundation").
 
 This plugin is compatible with version 5 of Foundation, and includes support for small, medium and large breakpoints.
 
@@ -50,7 +50,7 @@ Foundation Columns adds a row to posts where the shortcode is detected. I recomm
 == Changelog ==
 
 = 0.8 =
-* Fixes an issue where normal linebreaks was converted to tags. Thanks to [etlam][https://github.com/etlam]
+* Fixes an issue where normal linebreaks was converted to tags. Thanks to [etlam](https://github.com/etlam)
 
 = 0.5 =
 * Added support for blog grids
