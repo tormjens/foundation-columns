@@ -23,12 +23,14 @@ Now also with support for block grids.
 **Modifying the grid**
 
 If your grid has more than the default 12 columns you can use the `foundation_columns_count` filter.
-```
+`
+
 add_filter( 'foundation_columns_count', function($count) {
   $count = 16;
   return $count;
 } );
-```
+
+`
 
 **Please note:** This plugin does not install Foundation for you and therefore require that you use a theme built on Foundation.
 
