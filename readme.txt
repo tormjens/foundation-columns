@@ -32,6 +32,8 @@ add_filter( 'foundation_columns_count', function($count) {
 
 `
 
+If you would like to contribute to this plugin. Please open a pull request on [Github](https://github.com/tormjens/foundation-columns)
+
 **Please note:** This plugin does not install Foundation for you and therefore require that you use a theme built on Foundation.
 
 == Installation ==
