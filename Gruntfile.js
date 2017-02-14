@@ -37,7 +37,7 @@ module.exports = function( grunt ) {
 			}
 		},
 		watch:  {
-			
+
 			sass: {
 				files: ['assets/css/sass/*.scss'],
 				tasks: ['sass', 'cssmin'],
@@ -45,7 +45,7 @@ module.exports = function( grunt ) {
 					debounceDelay: 500
 				}
 			},
-			
+
 			scripts: {
 				files: ['assets/js/src/**/*.js', 'assets/js/vendor/**/*.js'],
 				tasks: ['jshint', 'concat', 'uglify'],
@@ -70,6 +70,7 @@ module.exports = function( grunt ) {
 					'!js/src/**',
 					'!img/src/**',
 					'!Gruntfile.js',
+          '!README.md',
 					'!package.json',
 					'!.gitignore',
 					'!.gitmodules',
@@ -96,7 +97,7 @@ module.exports = function( grunt ) {
 			    src: '**',
 			    dest: 'plugin/trunk/',
 			    expand: true
-			}	
+			}
 		},
 		compress: {
 			main: {
@@ -108,28 +109,28 @@ module.exports = function( grunt ) {
 				cwd: 'release/<%= pkg.version %>/',
 				src: ['**/*'],
 				dest: 'foundation_columns/'
-			}		
+			}
 		}
 	} );
-	
+
 	// Load other tasks
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
-	
+
 	grunt.loadNpmTasks('grunt-contrib-sass');
-	
+
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks( 'grunt-contrib-clean' );
 	grunt.loadNpmTasks( 'grunt-contrib-copy' );
 	grunt.loadNpmTasks( 'grunt-contrib-compress' );
-	
+
 	// Default task.
-	
+
 	grunt.registerTask( 'default', ['concat', 'uglify'] );
-	
-	
+
+
 	grunt.registerTask( 'build', ['default', 'clean', 'copy', 'compress'] );
 
 	grunt.util.linefeed = '\n';
