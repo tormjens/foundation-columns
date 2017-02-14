@@ -3,8 +3,8 @@ Contributors: tormorten
 Donate link: http://tormorten.no/
 Tags: foundation, zurb, columns, grid
 Requires at least: 3.7
-Tested up to: 4.2
-Stable tag: 0.8
+Tested up to: 4.7.2
+Stable tag: 0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,11 +16,21 @@ Adds support for using Zurb's Foundation grid-system via shortcodes in WordPress
 
 For more information about Foundation, please [read the docs](http://foundation.zurb.com/docs/ "Zurb Foundation").
 
-This plugin is compatible with version 5 of Foundation, and includes support for small, medium and large breakpoints.
+This plugin is compatible with version 5 and version 6 of Foundation, and includes support for small, medium and large breakpoints.
 
 Now also with support for block grids.
 
-Please note: This plugin does not install Foundation for you and therefore require that you use a theme built on Foundation.
+**Modifying the grid**
+
+If your grid has more than the default 12 columns you can use the `foundation_columns_count` filter.
+```
+add_filter( 'foundation_columns_count', function($count) {
+  $count = 16;
+  return $count;
+} );
+```
+
+**Please note:** This plugin does not install Foundation for you and therefore require that you use a theme built on Foundation.
 
 == Installation ==
 
@@ -40,7 +50,7 @@ If you don't want all the breakpoints you can just click "OK" while prompted for
 
 = Text that I don't put in columns are not aligned with rest of the site. =
 
-Foundation Columns adds a row to posts where the shortcode is detected. I recommend you put all your content in columns to make sure it gets the right padding.
+Foundation Columns adds a row to posts where the shortcode is detected. Recommended is that you put all your content in columns to make sure it gets the right padding.
 
 == Screenshots ==
 
@@ -48,6 +58,11 @@ Foundation Columns adds a row to posts where the shortcode is detected. I recomm
 2. The result after added columns.
 
 == Changelog ==
+
+= 0.9 =
+* Move to a class based pattern.
+* Added filter that allows changing the number of columns in the grid.
+* Supports up to WP 4.7.2
 
 = 0.8 =
 * Fixes an issue where normal linebreaks was converted to tags. Thanks to [etlam](https://github.com/etlam)
@@ -57,7 +72,7 @@ Foundation Columns adds a row to posts where the shortcode is detected. I recomm
 * Moved from prompt to popup
 
 = 0.4 =
-* The first version of the plugin. 
+* The first version of the plugin.
 
 == Upgrade Notice ==
 

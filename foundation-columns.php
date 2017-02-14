@@ -1,9 +1,4 @@
 <?php
-/**
- * Foundation Columns WordPress Plugin
- * 
- * @package WordPress
- **/
 /*
 Plugin Name: Foundation Columns
 Plugin URI: http://tormorten.no
@@ -36,12 +31,13 @@ Author URI: http://tormorten.no
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	die( 'Access denied.' );
+    die( 'Access denied.' );
 }
+
 /**
  * The name of the plugin
  **/
-define( 'FCOL_NAME',                 'Foundation Columns' );
+define( 'FCOL_NAME', 'Foundation Columns' );
 
 /**
  * The minimum required PHP version
@@ -51,165 +47,254 @@ define( 'FCOL_REQUIRED_PHP_VERSION', '5' );
 /**
  * The minimum required WordPress version
  **/
-define( 'FCOL_REQUIRED_WP_VERSION',  '3.7' );
+define( 'FCOL_REQUIRED_WP_VERSION', '3.7' );
 
-/**
- * Checks if the system requirements are met
- *
- * @return bool True if system requirements are met, false if not
- */
-function foundation_columns_requirements_met() {
-	global $wp_version;
 
-	if ( version_compare( PHP_VERSION, FCOL_REQUIRED_PHP_VERSION, '<' ) ) {
-		return false;
-	}
+final class Foundation_Columns {
 
-	if ( version_compare( $wp_version, FCOL_REQUIRED_WP_VERSION, '<' ) ) {
-		return false;
-	}
+    /**
+     * Foundation version.
+     *
+     * @var string
+     */
+    public $version = '0.9';
 
-	if ( function_exists('foundation_columns') ) {
-		return false;
-	}
+    /**
+     * The single instance of the class.
+     *
+     * @var Foundation_Columns
+     * @since 0.9
+     */
+    protected static $_instance = null;
 
-	return true;
-}
 
-if( foundation_columns_requirements_met() ) {
+    /**
+     * Main Foundation Instance.
+     *
+     * Ensures only one instance of Foundation is loaded or can be loaded.
+     *
+     * @since 0.9
+     * @static
+     * @see FC()
+     * @return Foundation_Columns
+     */
+    public static function instance() {
+        if ( is_null( self::$_instance ) ) {
+            self::$_instance = new self();
+        }
+        return self::$_instance;
+    }
 
-	/**
-	 * Localize the plugin
-	 *
-	 * @return void
-	 */
+    /**
+     * Cloning is forbidden.
+     *
+     * @since 0.9
+     */
+    public function __clone() {
+        _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'foundation-columns' ), '2.1' );
+    }
 
-	function foundation_columns_textdomain() {
-		
-		$domain = 'foundation_columns';
-		$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
-		load_textdomain( $domain, WP_LANG_DIR.'/'.$domain.'/'.$domain.'-'.$locale.'.mo' );
-		load_plugin_textdomain( $domain, FALSE, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );
-			
-	}
+    /**
+     * Unserializing instances of this class is forbidden.
+     *
+     * @since 0.9
+     */
+    public function __wakeup() {
+        _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'foundation-columns' ), '2.1' );
+    }
 
-	add_action( 'plugins_loaded', 'foundation_columns_textdomain' );
+    /**
+     * Auto-load in-accessible properties on demand.
+     *
+     * @param mixed
+     * @return mixed
+     * @since 0.9
+     */
+    public function __get( $key ) {
+    }
 
-	/**
-	 * Shortcode function for the main grid system
-	 *
-	 * @param array|string $atts Shortcode attributes
-	 * @param string $content The content inside the shortcode
-	 * @return string Column Formatted
-	 */
+    /**
+     * Foundation Constructor.
+     */
+    public function __construct() {
+        if( $this->requirements_met() ) {
 
-	function foundation_columns( $atts, $content = null ) {
+            // load textdomain
+            add_action( 'plugins_loaded', array( $this, 'textdomain' ) );
 
-		$atts = extract( shortcode_atts( array( 'cols' => '' ),$atts ) );
-		
-		if( $cols ) {
+            // add shortcodes
+            add_shortcode( 'fc', array( $this, 'shortcode' ) );
+            add_shortcode( 'fc_grid', array( $this, 'grid' ) );
+            add_shortcode( 'fc_item', array( $this, 'item' ) );
 
-			$return = '<div class="'. $cols .' columns">';
-				$return .= '<p>';
-					$return .= do_shortcode($content);
-				$return .= '</p>';
-			$return .= '</div>';
+            // add class to the body
+            add_filter( 'post_class', array( $this, 'posts_class' ), 1, 3 );
 
-		}
+            // modify the content
+            add_filter( 'the_content', array( $this, 'content' ), 1 );
+            remove_filter( 'the_content', 'wpautop' ); // move the autop filter
+            add_filter( 'the_content', 'wpautop' , 99); // amend
+            add_filter( 'the_content', 'shortcode_unautop',100 ); // remove autop inside shortcodes
 
-		return $return;
+            // create an array of data to send to the JS
+            add_action( 'admin_enqueue_scripts', array( $this, 'data') );
 
-	}
+            // add buttons
+            add_action( 'init', array( $this, 'buttonhooks' ) );
 
-	add_shortcode( 'fc','foundation_columns' );
+            // add css for the icon
+            add_action( 'admin_head', array( $this, 'icon' ), 999 );
 
-	/**
-	 * Shortcode function for the block grid
-	 *
-	 * @param array|string $atts Shortcode attributes
-	 * @param string $content The content inside the shortcode
-	 * @return string A block grid
-	 */
+            // add languages array
+            add_filter( 'mce_external_languages', array( $this, 'localization' ) );
+        }
+        else {
+            // error on requirements not met
+            add_action( 'admin_notices', array( $this, 'error' ) );
+        }
+    }
 
-	function foundation_columns_grid( $atts, $content = null ) {
+    /**
+     * Passes data to the TinyMCE plugin
+     * @return void
+     */
+    public function data() {
+        wp_localize_script( 'wp-embed', 'FoundationColumns', array(
+            'columns' => apply_filters( 'foundation_columns_count', 12 ), // use this filter if your grid has more columns
+        ) );
+    }
 
-		$atts = extract( shortcode_atts( array( 'cols' => '' ),$atts ) );
+    /**
+     * Checks if the system requirements are met
+     *
+     * @return bool True if system requirements are met, false if not
+     */
+    function requirements_met() {
+        global $wp_version;
 
-		if( $cols ) {
+        // check if the current php version matches our minimum requirements
+        if ( version_compare( PHP_VERSION, FCOL_REQUIRED_PHP_VERSION, '<' ) ) {
+            return false;
+        }
 
-			$return = '<ul class="'. $cols .'">';
+        // check if the current wordpress version matches our minimum requirements
+        if ( version_compare( $wp_version, FCOL_REQUIRED_WP_VERSION, '<' ) ) {
+            return false;
+        }
 
-			$return .= do_shortcode( $content );
+        // all checks passed
+        return true;
+    }
 
-			$return .= '</ul>';
+    /**
+     * Localize the plugin
+     *
+     * @return void
+     */
+    function textdomain() {
+        $domain = 'foundation_columns';
+        $locale = apply_filters( 'plugin_locale', get_locale(), $domain );
+        load_textdomain( $domain, WP_LANG_DIR.'/'.$domain.'/'.$domain.'-'.$locale.'.mo' );
+        load_plugin_textdomain( $domain, FALSE, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );
+    }
 
-		}
+    /**
+     * Shortcode function for the main grid system
+     *
+     * @param array|string $atts Shortcode attributes
+     * @param string $content The content inside the shortcode
+     * @return string Column Formatted
+     */
+    function shortcode( $atts, $content = null ) {
 
-		return $return;
+        $atts = extract( shortcode_atts( array( 'cols' => '' ),$atts ) );
 
-	}
+        if( $cols ) {
 
-	add_shortcode( 'fc_grid','foundation_columns_grid' );
+            $return = '<div class="'. $cols .' columns">';
+                $return .= '<p>';
+                    $return .= do_shortcode($content);
+                $return .= '</p>';
+            $return .= '</div>';
 
-	/**
-	 * Shortcode function for the block grid items
-	 *
-	 * @param array|string $atts Shortcode attributes
-	 * @param string $content The content inside the shortcode
-	 * @return string A block grid item
-	 */
+        }
 
-	function foundation_columns_item( $atts, $content = null ) {
-	
-		$return = '<li>';
-		$return .= do_shortcode($content);
-		$return .= '</li>';
+        return $return;
 
-		return $return;
+    }
 
-	}
+    /**
+     * Shortcode function for the block grid
+     *
+     * @param array|string $atts Shortcode attributes
+     * @param string $content The content inside the shortcode
+     * @return string A block grid
+     */
+    function shortcode_grid( $atts, $content = null ) {
 
-	add_shortcode( 'fc_item','foundation_columns_item' );
+        $atts = extract( shortcode_atts( array( 'cols' => '' ),$atts ) );
 
-	/**
-	 * Add a class to posts_class if shortcode is present
-	 *
-	 * @param array $classes An array of classes
-	 * @param string $class The current class
-	 * @param integer $post_id The post ID
-	 * @return array Modified classes 
-	 */
+        if( $cols ) {
 
-	function foundation_columns_posts_class( $classes, $class, $post_id ) {
-		
-		$post = get_post($post_id);
+            $return = '<ul class="'. $cols .'">';
 
-		if( has_shortcode( $post->post_content, 'fc' ) || has_shortcode( $post->post_content, 'fc_grid' ) ) {
-			$classes[] = 'has-foundation-columns';
-		}
-		
-		return $classes;
+            $return .= do_shortcode( $content );
 
-	}
+            $return .= '</ul>';
 
-	add_filter( 'post_class', 'foundation_columns_posts_class', 1, 3 );
+        }
 
-	/**
-	 * Filters the content and puts a row around if the [fc]-shortcode is present
-	 *
-	 * @param string $content The posts content
-	 * @return string Modified post content
-	 */
+        return $return;
 
-	function foundation_columns_content($content) {
-		
-		if(strpos($content, 'columns') != false) {
-			$found = true;
-		}
+    }
 
-		if(has_shortcode( $content, 'fc' )) {
+    /**
+     * Shortcode function for the block grid items
+     *
+     * @param array|string $atts Shortcode attributes
+     * @param string $content The content inside the shortcode
+     * @return string A block grid item
+     */
+    function shortcode_item( $atts, $content = null ) {
 
-			$paragraphs = explode("\r\n", $content);
+        $return = '<li>';
+        $return .= do_shortcode($content);
+        $return .= '</li>';
+
+        return $return;
+
+    }
+
+    /**
+     * Add a class to posts_class if shortcode is present
+     *
+     * @param array $classes An array of classes
+     * @param string $class The current class
+     * @param integer $post_id The post ID
+     * @return array Modified classes
+     */
+    function posts_class( $classes, $class, $post_id ) {
+
+        $post = get_post($post_id);
+
+        if( has_shortcode( $post->post_content, 'fc' ) || has_shortcode( $post->post_content, 'fc_grid' ) ) {
+            $classes[] = 'has-foundation-columns';
+        }
+
+        return $classes;
+
+    }
+
+    /**
+     * Filters the content and puts a row around if the [fc]-shortcode is present
+     *
+     * @param string $content The posts content
+     * @return string Modified post content
+     */
+    function content($content) {
+        if(has_shortcode( $content, 'fc' )) {
+
+            $paragraphs = explode("\r\n", $content);
 
             $fixedParagraphs = array();
             $i = 0;
@@ -217,7 +302,7 @@ if( foundation_columns_requirements_met() ) {
             // fix problem with br
             foreach ($paragraphs as $paragraph){
                 if($paragraph !== '') {
-                    $fixedParagraphs[$i] .= $paragraph."\r\n";
+                    $fixedParagraphs[$i] = $paragraph."\r\n";
 
                    if(substr($paragraph, 0, 3) == '[fc' || substr($paragraph, 0, 4) == '[/fc')
                         $i++;
@@ -227,158 +312,131 @@ if( foundation_columns_requirements_met() ) {
                 }
             }
 
-			$new_content = '';
+            $new_content = '';
 
-			foreach($fixedParagraphs as $paragraph) {
-				if(substr($paragraph, 0, 3) == '[fc' || substr($paragraph, 0, 4) == '[/fc')
-					$new_content .= $paragraph;
-				else {
-					$new_content .= '<div class="small-12 columns"><p>';
-					$new_content .= $paragraph;
-					$new_content .= '</p></div>';
-				}
-			}
+            foreach($fixedParagraphs as $paragraph) {
+                if(substr($paragraph, 0, 3) == '[fc' || substr($paragraph, 0, 4) == '[/fc')
+                    $new_content .= $paragraph;
+                else {
+                    $new_content .= '<div class="small-12 columns"><p>';
+                    $new_content .= $paragraph;
+                    $new_content .= '</p></div>';
+                }
+            }
 
-			$return = '<div class="row">';
-			$return .= $new_content;
-			$return .= '</div>';
-			$return = str_replace('<p></p>', '', $return);
-		}
-		else {
-			$return = $content;
-		}
+            $return = '<div class="row">';
+            $return .= $new_content;
+            $return .= '</div>';
+            $return = str_replace('<p></p>', '', $return);
+        }
+        else {
+            $return = $content;
+        }
 
 
-		return $return;
+        return $return;
 
-	}
+    }
 
-	add_filter('the_content', 'foundation_columns_content', 1);
-	remove_filter( 'the_content', 'wpautop' ); // move the autop filter
-	add_filter( 'the_content', 'wpautop' , 99); // amend
-	add_filter( 'the_content', 'shortcode_unautop',100 ); // remove autop inside shortcodes
+    /**
+     * Add buttons to the TinyMCE-editor
+     *
+     * @return void
+     */
+    function buttonhooks() {
+        if ( ( current_user_can('edit_posts') || current_user_can('edit_pages') ) && get_user_option('rich_editing') ) {
+            add_filter( 'mce_external_plugins', array($this, 'register_tinymce_javascript' ) );
+            add_filter( 'mce_buttons', array( $this, 'register_buttons' ) );
+        }
+    }
 
-	/**
-	 * Add buttons to the TinyMCE-editor
-	 *
-	 * @return void
-	 */
+    /**
+     * Registers the buttons
+     *
+     * @param array $buttons All buttons
+     * @return array All buttons
+     */
+    function register_buttons($buttons) {
+        array_push($buttons, "separator", "foundation_columns");
+        return $buttons;
+    }
 
-	function foundation_columns_buttonhooks() {
-	   	if ( ( current_user_can('edit_posts') || current_user_can('edit_pages') ) && get_user_option('rich_editing') ) {
-	    	add_filter("mce_external_plugins", "foundation_columns_register_tinymce_javascript");
-	    	add_filter('mce_buttons', 'foundation_columns_register_buttons');
-	    }
-	}
+    /**
+     * Adds the JavaScript used for the grid system in the editor
+     *
+     * @param array $plugin_array An array of tinyMCE plugins
+     * @return array TinyMCE plugins
+     */
+    function register_tinymce_javascript($plugin_array) {
+        $debug = defined( 'SCRIPT_DEBUG' ) ? SCRIPT_DEBUG : false;
+        $plugin_array['foundation_columns'] = plugins_url( '/assets/js/foundation_columns'. ( $debug ? '.min' : '' ) .'.js', __FILE__ );
+        return $plugin_array;
+    }
 
-	/**
-	 * Registers the buttons
-	 *
-	 * @param array $buttons All buttons
-	 * @return array All buttons
-	 */
-	 
-	function foundation_columns_register_buttons($buttons) {
-	   	array_push($buttons, "separator", "foundation_columns");
-	   	return $buttons;
-	}
+    /**
+     * Create an icon for the TinyMCE-menu
+     *
+     * @return void
+     */
+    function icon() {
+        if( is_admin() ) {
+            ?>
+            <style type="text/css">
+            .mce-i-zurb-icon {
+                background: url('<?php echo plugins_url('/assets/img/foundation_columns_20x20.png',__file__); ?>') no-repeat!important;
+            }
+            </style>
+            <?php
+        }
+    }
 
-	/**
-	 * Adds the JavaScript used for the grid system in the editor
-	 *
-	 * @param array $plugin_array An array of tinyMCE plugins
-	 * @return array TinyMCE plugins
-	 */
+    /**
+     * Languages for the dialog
+     *
+     * @param array $mce_external_languages Existing translations
+     * @return array Translation
+     */
+    function localization( $mce_external_languages ) {
+        $mce_external_languages[ 'foundation_columns' ] = plugin_dir_path( __FILE__ ) . 'localization.php';
+        return $mce_external_languages;
+    }
 
-	function foundation_columns_register_tinymce_javascript($plugin_array) {
-		$debug = defined('WP_DEBUG') ? WP_DEBUG : false;
-	   	$plugin_array['foundation_columns'] = plugins_url('/assets/js/foundation_columns'. ($debug ? '.min' : '') .'.js',__file__);
-	   	return $plugin_array;
-	}
-	 
-	add_action('init', 'foundation_columns_buttonhooks');
+    /**
+     * Throw and error upon activation if requirements are not met
+     *
+     * @return void An error message
+     */
+    function error() {
+        global $wp_version;
+        ?>
+        <div class="error">
+            <p><?php echo FCOL_NAME; ?> error: Your environment doesn't meet all of the system requirements listed below.</p>
 
-	/**
-	 * Create an icon for the TinyMCE-menu
-	 *
-	 * @return void
-	 */
-	
-	function foundation_columns_icon() {
+            <ul class="ul-disc">
+                <li>
+                    <strong>PHP <?php echo FCOL_REQUIRED_PHP_VERSION; ?>+</strong>
+                    <em>(You're running version <?php echo PHP_VERSION; ?>)</em>
+                </li>
 
-		if( is_admin() ) {
+                <li>
+                    <strong>WordPress <?php echo FCOL_REQUIRED_WP_VERSION; ?>+</strong>
+                    <em>(You're running version <?php echo esc_html( $wp_version ); ?>)</em>
+                </li>
+            </ul>
 
-			?>
-			<style type="text/css">
-			.mce-i-zurb-icon {
-				background: url('<?php echo plugins_url('/assets/img/foundation_columns_20x20.png',__file__); ?>') no-repeat!important;
-			}
-			</style>
-			<?php
+            <p>If you need to upgrade your version of PHP you can ask your hosting company for assistance, and if you need help upgrading WordPress you can refer to <a href="http://codex.wordpress.org/Upgrading_WordPress">the Codex</a>.</p>
 
-		}
-
-	}
-
-	add_action( 'admin_head', 'foundation_columns_icon', 999 );
-
-	/**
-	 * Languages for the dialog
-	 *
-	 * @param array $mce_external_languages Existing translations
-	 * @return array Translation
-	 */
-
-	function foundation_columns_localization( $mce_external_languages ) {
-		$mce_external_languages[ 'foundation_columns' ] = plugin_dir_path( __FILE__ ) . 'localization.php';
-		return $mce_external_languages;
-	}
-
-	add_filter( 'mce_external_languages', 'foundation_columns_localization' );
-
+            <p>You might be getting this error if there is already an instance of the plugin installed.</p>
+        </div>
+        <?php
+    }
 }
-else {
-
-	add_action( 'admin_notices', 'foundation_columns_error' );
-
-}
-
-
 
 /**
- * Throw and error upon activation if requirements are not met
- *
- * @return void An error message
+ * Fetches the single formie instance
  */
-
-function foundation_columns_error() {
-
-	global $wp_version;
-
-	?>
-
-	<div class="error">
-		<p><?php echo FCOL_NAME; ?> error: Your environment doesn't meet all of the system requirements listed below.</p>
-
-		<ul class="ul-disc">
-			<li>
-				<strong>PHP <?php echo FCOL_REQUIRED_PHP_VERSION; ?>+</strong>
-				<em>(You're running version <?php echo PHP_VERSION; ?>)</em>
-			</li>
-
-			<li>
-				<strong>WordPress <?php echo FCOL_REQUIRED_WP_VERSION; ?>+</strong>
-				<em>(You're running version <?php echo esc_html( $wp_version ); ?>)</em>
-			</li>
-		</ul>
-
-		<p>If you need to upgrade your version of PHP you can ask your hosting company for assistance, and if you need help upgrading WordPress you can refer to <a href="http://codex.wordpress.org/Upgrading_WordPress">the Codex</a>.</p>
-
-		<p>You might be getting this error if there is already an instance of the plugin installed.</p>
-	</div>
-
-	<?php
-
+function FCOL() {
+    return Foundation_Columns::instance();
 }
 
-?>
+$GLOBALS['foundation-columns'] = FCOL();
